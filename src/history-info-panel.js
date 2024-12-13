@@ -1,6 +1,6 @@
 
-import { defaultGood, defaultInactiveLight, defaultInactiveDark, stateColors, stateColorsDark, parseColor } from "./history-default-colors";
-import { infoPanelEnabled, isMobile, HistoryCardState } from "./history-explorer-card";
+import { defaultGood, defaultInactiveLight, defaultInactiveDark, stateColors, stateColorsDark, parseColor } from "./history-default-colors.js";
+import { infoPanelEnabled, isMobile, HistoryCardState } from "./history-explorer-card.js";
 
 // --------------------------------------------------------------------------------------
 // Clone of lit html(), don't want to pull in the entire framework
@@ -8,7 +8,7 @@ import { infoPanelEnabled, isMobile, HistoryCardState } from "./history-explorer
 
 const litHtml = (g) => {
     return (s, ...v) => {
-        return { 
+        return {
             _$litType$ : g,
             strings : s,
             values: v
@@ -46,7 +46,7 @@ function hecHookInfoPanel()
 
             if( !valid ) {
                 let selector = this.shadowRoot.querySelector('#maincard');
-                if( selector ) 
+                if( selector )
                     selector.style.display = 'none';
             }
 
@@ -128,8 +128,8 @@ function hecHookInfoPanel()
 
             }
 
-            if( !isMobile ) 
-                instance._this.querySelector('#maincard').addEventListener('wheel', instance.wheelScrolled.bind(instance), { passive: false }); 
+            if( !isMobile )
+                instance._this.querySelector('#maincard').addEventListener('wheel', instance.wheelScrolled.bind(instance), { passive: false });
 
             const config = hec_panel.config ?? {};
 
@@ -219,7 +219,7 @@ function hecHookInfoPanel()
 
             instance.today(false);
 
-            let ro = new ResizeObserver(entries => { 
+            let ro = new ResizeObserver(entries => {
                 for( let g of instance.graphs ) g.chart.resize(undefined, g.graphHeight);
                 instance.setStepSize(true);
             });
@@ -254,14 +254,14 @@ function hecHookInfoPanel()
     function isExcluded(hass, entity_id)
     {
         if( hec_panel?.config?.exclude ) {
-            return hec_panel.config.exclude[entity_id] || 
-                   hec_panel.config.exclude[getDomainForEntity(entity_id)] || 
+            return hec_panel.config.exclude[entity_id] ||
+                   hec_panel.config.exclude[getDomainForEntity(entity_id)] ||
                    hec_panel.config.exclude[getDeviceClass(hass, entity_id)];
         }
         return false;
     }
 
-    __fn.prototype._hec_updated = function(changedProps) 
+    __fn.prototype._hec_updated = function(changedProps)
     {
 
         if( !this.hec_instance ) {
@@ -318,9 +318,9 @@ function hecHookInfoPanel()
         }
     }
 
-    __fn.prototype._hec_render = function() 
+    __fn.prototype._hec_render = function()
     {
-        if( !this.hec_instance ) 
+        if( !this.hec_instance )
             readLocalConfig();
 
         const entity_id = this.__entityId;
